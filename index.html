@@ -2,8 +2,8 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Notion大学ポータル</title>
   <style>
     html,
@@ -16,18 +16,82 @@
     }
 
     iframe {
-      width: calc(100vw);
-      height: calc(100vh);
+      width: 100vw;
+      height: 100vh;
       border: none;
       border-radius: 1%;
+    }
+
+    .click-area {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 190px;
+      height: 40px;
+      background-color: #ffffff;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    .bird {
+      position: fixed;
+      top: 0;
+      pointer-events: none;
+      animation: fly-right 1.5s linear forwards;
+      z-index: 9999;
+    }
+
+    @keyframes fly-right {
+      0% {
+        transform: translateX(-10vw);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateX(110vw);
+        opacity: 1;
+      }
+    }
+
+    .bird img {
+      height: 30px;
     }
   </style>
 </head>
 
 <body>
-  <!-- 右上のマークを消すために白い四角を配置 -->
-  <div style="position: absolute; top: 0; right: 0; width: 190px; height: 40px; background-color: #ffffff;"></div>
-  <iframe src="https://35d-university.notion.site/ebd/137ca4d942118008b9bfeaca3efcadb6" width="100%" height="600" frameborder="0" allowfullscreen />
+  <div class="click-area" onclick="launchBirds()"></div>
+  <iframe src="https://35d-university.notion.site/ebd/137ca4d942118008b9bfeaca3efcadb6"></iframe>
+
+  <script>
+    function launchBirds() {
+      const duration = 1500; // ← 1.5秒に短縮
+      const interval = 1;
+      const endTime = Date.now() + duration;
+
+      const spawn = () => {
+        if (Date.now() > endTime) return;
+
+        const bird = document.createElement("div");
+        bird.className = "bird";
+        bird.style.top = Math.random() * window.innerHeight + "px";
+        bird.style.left = "-10vw";
+
+        const img = document.createElement("img");
+        img.src = "teachan.png";
+        img.style.height = 40 + Math.random() * 40 + "px"; // 40〜80px
+
+        bird.appendChild(img);
+        document.body.appendChild(bird);
+
+        setTimeout(() => bird.remove(), 1600); // ちょい余裕持たせて消す
+
+        setTimeout(spawn, interval);
+      };
+
+      spawn();
+    }
+  </script>
 </body>
 
 </html>
