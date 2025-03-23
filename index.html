@@ -65,8 +65,7 @@
 
   <script>
     function launchBirds() {
-      const duration = 1500; // ← 1.5秒に短縮
-      const interval = 1;
+      const duration = 1500;
       const endTime = Date.now() + duration;
 
       const spawn = () => {
@@ -79,14 +78,15 @@
 
         const img = document.createElement("img");
         img.src = "teachan.png";
-        img.style.height = 40 + Math.random() * 40 + "px"; // 40〜80px
+        img.style.height = 40 + Math.random() * 40 + "px";
 
         bird.appendChild(img);
         document.body.appendChild(bird);
 
-        setTimeout(() => bird.remove(), 1600); // ちょい余裕持たせて消す
+        setTimeout(() => bird.remove(), 1600);
 
-        setTimeout(spawn, interval);
+        // わざとばらけさせる
+        setTimeout(spawn, Math.random() * 5);
       };
 
       spawn();
