@@ -22,7 +22,7 @@
       border-radius: 1%;
     }
 
-    .click-area {
+    .white-box {
       position: absolute;
       top: 0;
       right: 0;
@@ -30,6 +30,16 @@
       height: 40px;
       background-color: #ffffff;
       z-index: 10;
+    }
+
+    .trigger-icon {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      /* ← ここだけ変更 */
+      width: 30px;
+      height: 30px;
+      z-index: 20;
       cursor: pointer;
     }
 
@@ -60,7 +70,10 @@
 </head>
 
 <body>
-  <div class="click-area" onclick="launchBirds()"></div>
+  <div class="white-box"></div>
+
+  <img src="teachan.png" class="trigger-icon" onclick="launchBirds()" />
+
   <iframe src="https://35d-university.notion.site/ebd/137ca4d942118008b9bfeaca3efcadb6"></iframe>
 
   <script>
@@ -84,8 +97,6 @@
         document.body.appendChild(bird);
 
         setTimeout(() => bird.remove(), 1600);
-
-        // わざとばらけさせる
         setTimeout(spawn, Math.random() * 5);
       };
 
