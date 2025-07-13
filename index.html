@@ -56,9 +56,24 @@
 
   <img src="teachan.png" class="trigger-icon" onclick="launchBirds()" />
 
-  <iframe src="https://35d-university.notion.site/ebd/137ca4d942118008b9bfeaca3efcadb6"></iframe>
+  <iframe id="notionIframe"></iframe>
 
   <script>
+    // デフォルトのページID
+    const DEFAULT_PAGE_ID = '137ca4d942118008b9bfeaca3efcadb6';
+    
+    // URLのクエリパラメータを取得してiframeのsrcを設定
+    function setupIframe() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const pageId = urlParams.get('id') || DEFAULT_PAGE_ID;
+      
+      const iframe = document.getElementById('notionIframe');
+      iframe.src = `https://35d-university.notion.site/ebd/${pageId}`;
+    }
+
+    // ページ読み込み時にiframeを設定
+    document.addEventListener('DOMContentLoaded', setupIframe);
+
     function launchBirds() {
       const duration = 1500;
       const endTime = Date.now() + duration;
